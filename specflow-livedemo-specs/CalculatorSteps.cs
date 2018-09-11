@@ -7,8 +7,14 @@ namespace specflow_livedemo_specs
     [Binding]
     public class CalculatorSteps
     {
-        private readonly Calculator _calculator = new Calculator();
+        private Calculator _calculator;
         private int _result;
+
+        [BeforeScenario()]
+        public void BeforeEachScenario()
+        {
+            _calculator = new Calculator();
+        }
 
         [Given(@"I have entered (.*) into the calculator")]
         public void GivenIHaveEnteredIntoTheCalculator(int number)
@@ -27,7 +33,14 @@ namespace specflow_livedemo_specs
         {
             _result = _calculator.Add();
         }
-        
+
+        [When(@"I press subtract")]
+        public void WhenIPressSubtract()
+        {
+            _result = _calculator.Subtract();
+        }
+
+
         [Then(@"the result should be (.*) on the screen")]
         public void ThenTheResultShouldBeOnTheScreen(int expectedResult)
         {
