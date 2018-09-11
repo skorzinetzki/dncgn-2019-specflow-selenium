@@ -1,33 +1,37 @@
-﻿using System;
+﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
+using specflow_livedemo;
 
 namespace specflow_livedemo_specs
 {
     [Binding]
     public class CalculatorSteps
     {
+        private readonly Calculator _calculator = new Calculator();
+        private int _result;
+
         [Given(@"I have entered (.*) into the calculator")]
-        public void GivenIHaveEnteredIntoTheCalculator(int p0)
+        public void GivenIHaveEnteredIntoTheCalculator(int number)
         {
-            ScenarioContext.Current.Pending();
+            _calculator.FirstNumber = number;
         }
         
         [Given(@"I have also entered (.*) into the calculator")]
-        public void GivenIHaveAlsoEnteredIntoTheCalculator(int p0)
+        public void GivenIHaveAlsoEnteredIntoTheCalculator(int number)
         {
-            ScenarioContext.Current.Pending();
+            _calculator.SecondNumber = number;
         }
         
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
-            ScenarioContext.Current.Pending();
+            _result = _calculator.Add();
         }
         
         [Then(@"the result should be (.*) on the screen")]
-        public void ThenTheResultShouldBeOnTheScreen(int p0)
+        public void ThenTheResultShouldBeOnTheScreen(int expectedResult)
         {
-            ScenarioContext.Current.Pending();
+            Assert.AreEqual(expectedResult, _result);
         }
     }
 }
