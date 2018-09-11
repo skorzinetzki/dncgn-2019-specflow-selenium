@@ -5,14 +5,16 @@
         public int FirstNumber { get; set; }
         public int SecondNumber { get; set; }
 
-        public int Add()
+        public CalculationResult CalculationResult { get; set; }
+
+        public void Add()
         {
-            return FirstNumber + SecondNumber;
+            CalculationResult = new CalculationResult {Result = FirstNumber + SecondNumber};
         }
 
-        public int Subtract()
+        public void Subtract()
         {
-            return FirstNumber - SecondNumber;
+            CalculationResult = new CalculationResult { Result = FirstNumber - SecondNumber };
         }
     }
 }

@@ -7,13 +7,17 @@ namespace specflow_livedemo_specs
     [Binding]
     public class CalculatorSteps
     {
-        private Calculator _calculator;
-        private int _result;
+        private readonly Calculator _calculator;
+
+        public CalculatorSteps(Calculator calculator)
+        {
+            _calculator = calculator;
+        }
 
         [BeforeScenario()]
         public void BeforeEachScenario()
         {
-            _calculator = new Calculator();
+            Assert.IsNull(_calculator.CalculationResult);
         }
 
         [Given(@"I have entered (.*) into the calculator")]
@@ -27,24 +31,11 @@ namespace specflow_livedemo_specs
         {
             _calculator.SecondNumber = number;
         }
-        
-        [When(@"I press add")]
-        public void WhenIPressAdd()
-        {
-            _result = _calculator.Add();
-        }
-
-        [When(@"I press subtract")]
-        public void WhenIPressSubtract()
-        {
-            _result = _calculator.Subtract();
-        }
-
 
         [Then(@"the result should be (.*) on the screen")]
         public void ThenTheResultShouldBeOnTheScreen(int expectedResult)
         {
-            Assert.AreEqual(expectedResult, _result);
+            Assert.AreEqual(expectedResult, _calculator.CalculationResult.Result);
         }
     }
 }
